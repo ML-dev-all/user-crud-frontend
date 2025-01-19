@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import api from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 const UserForm = () => {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [age, setAge] = useState("");
@@ -11,6 +13,7 @@ const UserForm = () => {
     try {
       await api.post("/users", { name, email, age });
       alert("Usuário cadastrado com sucesso!");
+      navigate("/");
     } catch (error) {
       console.error("Erro ao cadastrar usuário:", error);
     }

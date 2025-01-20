@@ -1,38 +1,59 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Chart } from "react-google-charts";
-
-const data = [
-  ["Age", "Ammount"],
-  ["20-29", 5],
-  ["30-39", 3],
-  ["40-49", 2],
-  ["50-59", 1],
-];
-
-const options = {
-  title: "Age Distribution",
-  colors: ["#1b9e77"],
-  hAxis: {
-    title: "Ammount",
-  },
-  vAxis: {
-    title: "Age",
-  },
-  legend: { position: "none" },
-};
+import axios from "axios";
 
 const BarChart = () => {
+  const [userData, setUserData] = useState([]);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get(
+          "https://user-crud-api-4ks8.onrender.com/api/users/users-by-age"
+        );
+        const formattedData = [["Age", "Ammount"]];
+        response.data.forEach((group) => {
+          formattedData.push([
+            `${group._id}-${parseInt(group._id) + 9}`,
+            group.count,
+          ]);
+        });
+        setUserData(formattedData);
+      } catch (error) {
+        console.error("Erro ao buscar os dados:", error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  const options = {
+    title: "Age Distribution",
+    colors: ["#1b9e77"],
+    hAxis: {
+      title: "Ammount",
+    },
+    vAxis: {
+      title: "Age",
+    },
+    legend: { position: "none" },
+  };
+
   return (
     <div
       style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}
     >
-      <Chart
-        chartType="BarChart"
-        width="80%"
-        height="400px"
-        data={data}
-        options={options}
-      />
+      {userData.length > 1 ? (
+        <Chart
+          chartType="BarChart"
+          width="80%"
+          height="400px"
+          data={userData}
+          options={options}
+        />
+      ) : (
+        <p>Carregando Gráfico...</p>
+      )}
     </div>
   );
 };

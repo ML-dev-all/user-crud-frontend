@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"; // Para navegação
 import api from "../services/api"; // Importa as funções da API
+import BarChart from "../components/BarChart";
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
@@ -37,6 +38,7 @@ const UserList = () => {
   return (
     <div>
       <h1>Lista de Usuários</h1>
+      <BarChart />
       <table>
         <thead>
           <tr>

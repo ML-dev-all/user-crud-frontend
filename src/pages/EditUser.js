@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../services/api";
+import { Button } from "react-bootstrap";
 
 const EditUser = () => {
   const { id } = useParams(); // Obtém o ID do usuário a partir da URL
@@ -54,42 +55,60 @@ const EditUser = () => {
     <div>
       <h1>Editar Usuário</h1>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name">Nome:</label>
+        <div className="mb-3">
+          <label htmlFor="name" className="form-label">
+            Name:
+          </label>
           <input
             type="text"
+            className="form-control"
             id="name"
+            aria-describedby="nameHelp"
             name="name"
             value={formData.name}
             onChange={handleChange}
             required
           />
+          <div id="emailHelp" className="form-text">
+            Complete com seu nome.
+          </div>
         </div>
-        <div>
-          <label htmlFor="email">Email:</label>
+        <div className="mb-3">
+          <label htmlFor="email" className="form-label">
+            email
+          </label>
           <input
             type="email"
+            className="form-control"
             id="email"
             name="email"
             value={formData.email}
             onChange={handleChange}
             required
-          />
+          ></input>
         </div>
-        <div>
-          <label htmlFor="age">Age:</label>
+        <div className="mb-3">
+          <label htmlFor="age" className="form-label">
+            Age
+          </label>
           <input
             type="number"
+            className="form-control"
             id="age"
             name="age"
             value={formData.age}
             onChange={handleChange}
             required
-          />
+          ></input>
         </div>
-        <button type="submit">Salvar Alterações</button>
+
+        <Button className="btn btn-primary m-2" type="submit">
+          Salvar Alterações
+        </Button>
       </form>
-      <button onClick={() => navigate("/")}>Cancelar</button>
+      <Button className="btn btn-danger m-2" onClick={() => navigate("/")}>
+        Cancelar
+      </Button>
     </div>
   );
 };

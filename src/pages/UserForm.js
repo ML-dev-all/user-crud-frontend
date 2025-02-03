@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import api from "../services/api";
 import { useNavigate } from "react-router-dom";
-
+import { Button } from "react-bootstrap";
 const UserForm = () => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
@@ -23,25 +23,56 @@ const UserForm = () => {
     <div>
       <h1>Cadastrar Usuário</h1>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Nome"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="age"
-          placeholder="Age"
-          value={age}
-          onChange={(e) => setAge(e.target.value)}
-        />
-        <button type="submit">Cadastrar</button>
+        <div className="mb-3">
+          <label htmlFor="name" className="form-label">
+            Name:
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="name"
+            aria-describedby="nameHelp"
+            name="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <div id="emailHelp" className="form-text">
+            Complete com seu nome.
+          </div>
+        </div>
+        <div className="mb-3">
+          <label htmlFor="email" className="form-label">
+            email
+          </label>
+          <input
+            type="email"
+            className="form-control"
+            id="email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          ></input>
+        </div>
+        <div className="mb-3">
+          <label htmlFor="age" class="form-label">
+            Age
+          </label>
+          <input
+            type="number"
+            className="form-control"
+            id="age"
+            name="age"
+            value={age}
+            onChange={(e) => setAge(e.target.value)}
+            required
+          ></input>
+        </div>
+
+        <Button className="btn btn-primary m-2" type="submit">
+          Cadastrar
+        </Button>
       </form>
     </div>
   );

@@ -2,15 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Chart } from "react-google-charts";
 import axios from "axios";
 
+const API_URL = process.env.REACT_APP_API_URL_BARCHART;
 const BarChart = () => {
   const [userData, setUserData] = useState([]);
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(
-          "https://user-crud-api-4ks8.onrender.com/api/users/users-by-age"
-        );
+        const response = await axios.get(API_URL);
         const formattedData = [["Age", "Ammount"]];
         response.data.forEach((group) => {
           formattedData.push([

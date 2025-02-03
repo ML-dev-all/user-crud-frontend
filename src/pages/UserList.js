@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"; // Para navegação
 import api from "../services/api"; // Importa as funções da API
 import BarChart from "../components/BarChart";
+import { Button, Col, Container, Row } from "react-bootstrap";
+import ReportGenerator from "../components/ReportGenerator";
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
@@ -38,32 +40,49 @@ const UserList = () => {
   return (
     <div>
       <h1>Lista de Usuários</h1>
-      <BarChart />
-      <table>
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => (
-            <tr key={user._id}>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td>
-                {/* Botão para editar */}
-                <button onClick={() => navigate(`/edit-user/${user._id}`)}>
-                  Editar
-                </button>
-                {/* Botão para deletar */}
-                <button onClick={() => handleDelete(user._id)}>Deletar</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <Container>
+        <Row className="fs-6 align-items-center">
+          <Col md={8} className="table-responsive">
+            <table className="table table-hover">
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Email</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                {users.map((user) => (
+                  <tr key={user._id}>
+                    <td>{user.name}</td>
+                    <td>{user.email}</td>
+                    <td>
+                      {/* Botão para editar */}
+                      <Button
+                        className="btn btn-primary m-2 btn-sm"
+                        onClick={() => navigate(`/edit-user/${user._id}`)}
+                      >
+                        Editar
+                      </Button>
+                      {/* Botão para deletar */}
+                      <Button
+                        className="btn btn-danger m-2 btn-sm"
+                        onClick={() => handleDelete(user._id)}
+                      >
+                        Deletar
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <ReportGenerator />
+          </Col>
+          <Col>
+            <BarChart />
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 };
